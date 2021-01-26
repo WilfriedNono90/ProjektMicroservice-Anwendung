@@ -53,8 +53,9 @@ public class ResultService {
 		Player player = new Player();
 		player.setId(result.getIdplayer());
 		playerService.save(player);
+		Result result2 = resultRepository.save(result);
 		kafkatemplate.send("neuplayerscore", player.getId().toString());
-		return resultRepository.save(result);
+		return result2;
 	}
 	
 	public boolean delete(Long id) {
@@ -71,7 +72,7 @@ public class ResultService {
 		return save(result);
 	}
 	
-	//@PostConstruct
+	@PostConstruct
 	public void dbFüllen() {
 		if(resultRepository.count() == 0) {
 			resultRepository.save(new Result(null,1L,2L,2L,2L,new Date()));

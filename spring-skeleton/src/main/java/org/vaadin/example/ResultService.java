@@ -22,6 +22,7 @@ public class ResultService {
 	@Autowired
 	private KafkaTemplate< String, String> kafkatemplate;
 	
+	
 	private ResultRepository resultRepository;
 	
 	public ResultService(ResultRepository resultRepository, PlayerRepository playerService) {
@@ -77,6 +78,7 @@ public class ResultService {
 		if(resultRepository.count() == 0) {
 			resultRepository.save(new Result(null,1L,2L,2L,2L,new Date()));
 			resultRepository.save(new Result(null,1L,1L,1L,2L,new Date()));
+			playerService.save(new Player(1L));
 		}
 	}
 
